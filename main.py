@@ -11,44 +11,28 @@ class BSTNode: # Binary Search Tree (BST) sınıfı
 
         self.val = val
 
-    def insert(self, val): # ekleme
-
+    def insert(self, val):
         if not self.val:
-
             self.val = val
-
             return
 
-
-        if self.val == val:
-
-            return
-
-
-
-        if val < self.val: # sol boş değilse
-
+        if val < self.val:
             if self.left:
-
                 self.left.insert(val)
-
-                return
-
-            self.left = BSTNode(val)
-
-            return
-
-
-
-        if self.right: # sağ boş değilse
-
-            self.right.insert(val)
-
-            return
-
-        self.right = BSTNode(val)
-
-
+            else:
+                self.left = BSTNode(val)
+        elif val > self.val:
+            if self.right:
+                self.right.insert(val)
+            else:
+                self.right = BSTNode(val)
+        else:
+            # Eğer değer zaten varsa, burada istediğiniz işlemi yapabilirsiniz.
+            print(f"{val} zaten ağaçta bulunuyor.")
+    
+    def insert_list(self, values):
+        for val in values:
+            self.insert(val)
 
     def get_min(self): # en küçük değeri bulma
  
@@ -211,19 +195,41 @@ def draw_bst(node, graph=None):
     return graph
 
 # BST ağacını oluştur
-root = BSTNode(5)
-root.insert(1)
-root.insert(8)
-root.insert(3)
-root.insert(4)
-root.insert(6)
-root.insert(7)
+# BST ağacını oluştur (Artan Sıralı)
 
+# BST ağacını oluştur
+root = BSTNode(5)
+# root.insert(5)
+# root.insert(11)
+# root.insert(12)
+# print("Ağaç oluşturuldu")
+
+# # Yeni değerleri eklemek için insert metodunu kullanabilirsiniz.
+# root.insert(10)
+# root.insert(7)
+# root.insert(11)  # Bu değer zaten var olduğu için istediğiniz işlemi yapabilirsiniz.
+
+
+# root = BSTNode(7)
+# root.insert(6)
+# root.insert(5)
+# root.insert(4)
+# root.insert(3)
+# root.insert(2)
+# root.insert(1)
+
+# BST'yi çiz (Azalan Sıralı)
+tree_graph = draw_bst(root)
+tree_graph.draw('bst_decreasing.png', format='png', prog='dot')
+
+
+
+values_to_insert = [20,19,15,16,17,18,14,13,12,11,10,9,8,7,6,5,4,3,2,1]
 k = root.get_max()
 print("En büyük değer: ", k)
 k = root.get_min()
 print("En küçük değer: ", k)
-
+root.insert_list(values_to_insert)
 # BST'yi çiz
 tree_graph = draw_bst(root)
 tree_graph.draw('bst.png', format='png', prog='dot')
